@@ -7,7 +7,9 @@ use crate::*;
 #[skip_serializing_none]
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize, Builder)]
 pub struct SlackEventAuthorization {
-    pub team_id: SlackTeamId,
+    pub enterprise_id: Option<SlackEnterpriseId>,
+    pub team_id: Option<SlackTeamId>,
     pub user_id: SlackUserId,
     pub is_bot: Option<bool>,
+    pub is_enterprise_install: Option<bool>,
 }
