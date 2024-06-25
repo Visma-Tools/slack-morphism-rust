@@ -90,6 +90,7 @@ pub struct SlackMessageEvent {
     pub subtype: Option<SlackMessageEventType>,
     pub hidden: Option<bool>,
     pub message: Option<SlackMessageEventEdited>,
+    pub previous_message: Option<SlackMessageEventEdited>,
     pub deleted_ts: Option<SlackTs>,
 }
 
@@ -197,6 +198,7 @@ pub struct SlackMessageEventEdited {
     pub sender: SlackMessageSender,
     pub ts: SlackTs,
     pub edited: Option<SlackMessageEdited>,
+    pub thread_ts: Option<SlackTs>,
 }
 
 #[skip_serializing_none]
