@@ -162,6 +162,8 @@ pub enum SlackMessageEventType {
     FilePublic,
     #[serde(rename = "huddle_thread")]
     HuddleThread,
+    #[serde(rename = "assistant_app_thread")]
+    AssistantAppThread,
 }
 
 #[skip_serializing_none]
