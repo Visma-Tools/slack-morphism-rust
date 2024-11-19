@@ -87,6 +87,14 @@ pub struct SlackHistoryMessage {
     pub parent: SlackParentMessageParams,
     pub subtype: Option<SlackMessageEventType>,
     pub edited: Option<SlackMessageEdited>,
+    pub assistant_app_thread: Option<SlackAssistantAppThread>,
+}
+
+#[skip_serializing_none]
+#[derive(Debug, PartialEq, Clone, Serialize, Deserialize, Builder)]
+pub struct SlackAssistantAppThread {
+    pub title: String,
+    pub title_blocks: Vec<SlackBlock>,
 }
 
 #[skip_serializing_none]

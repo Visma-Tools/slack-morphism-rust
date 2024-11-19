@@ -166,6 +166,8 @@ pub enum SlackMessageEventType {
     ShareShortcut,
     #[serde(rename = "channel_canvas_updated")]
     ChannelCanvasUpdated,
+    #[serde(rename = "assistant_app_thread")]
+    AssistantAppThread,
 }
 
 #[skip_serializing_none]
