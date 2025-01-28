@@ -49,6 +49,22 @@ pub struct SlackFile {
     pub reactions: Option<Vec<SlackReaction>>,
     #[serde(flatten)]
     pub flags: SlackFileFlags,
+    pub transcription: Option<SlackTranscription>,
+}
+
+#[skip_serializing_none]
+#[derive(Debug, PartialEq, Clone, Serialize, Deserialize, Builder)]
+pub struct SlackTranscription {
+    pub status: String,
+    pub locale: String,
+    pub preview: SlackTranscriptionPreview,
+}
+
+#[skip_serializing_none]
+#[derive(Debug, PartialEq, Clone, Serialize, Deserialize, Builder)]
+pub struct SlackTranscriptionPreview {
+    pub content: String,
+    pub has_more: bool,
 }
 
 #[skip_serializing_none]
