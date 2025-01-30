@@ -56,8 +56,8 @@ pub struct SlackFile {
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize, Builder)]
 pub struct SlackTranscription {
     pub status: String,
-    pub locale: String,
-    pub preview: SlackTranscriptionPreview,
+    pub locale: Option<String>,
+    pub preview: Option<SlackTranscriptionPreview>,
 }
 
 #[skip_serializing_none]
