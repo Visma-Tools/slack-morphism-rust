@@ -56,6 +56,7 @@ pub struct SlackChannelFlags {
     pub is_general: Option<bool>,
     pub is_shared: Option<bool>,
     pub is_org_shared: Option<bool>,
+    pub is_ext_shared: Option<bool>,
     pub is_member: Option<bool>,
     pub is_private: Option<bool>,
     pub is_mpim: Option<bool>,
