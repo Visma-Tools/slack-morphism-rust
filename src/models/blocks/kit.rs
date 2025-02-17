@@ -29,6 +29,10 @@ pub enum SlackBlock {
     Input(SlackInputBlock),
     #[serde(rename = "file")]
     File(SlackFileBlock),
+    #[serde(rename = "video")]
+    Video(SlackVideoBlock),
+    #[serde(rename = "markdown")]
+    Markdown(SlackMarkdownBlock),
 
     // This block is still undocumented, so we don't define any structure yet we can return it back,
     #[serde(rename = "rich_text")]
@@ -997,5 +1001,45 @@ impl From<&str> for SlackBlockPlainTextOnly {
         SlackBlockPlainTextOnly {
             value: value.into(),
         }
+    }
+}
+
+/**
+ * https://api.slack.com/reference/block-kit/blocks#video
+ */
+#[skip_serializing_none]
+#[derive(Debug, PartialEq, Clone, Serialize, Deserialize, Builder)]
+pub struct SlackVideoBlock {
+    pub alt_text: String,
+    pub author_name: Option<String>,
+    pub block_id: Option<SlackBlockId>,
+    pub description: Option<SlackBlockPlainTextOnly>,
+    pub provider_icon_url: Option<Url>,
+    pub provider_name: Option<String>,
+    pub title: SlackBlockPlainTextOnly,
+    pub title_url: Option<Url>,
+    pub thumbnail_url: Url,
+    pub video_url: Url,
+}
+
+impl From<SlackVideoBlock> for SlackBlock {
+    fn from(block: SlackVideoBlock) -> Self {
+        SlackBlock::Video(block)
+    }
+}
+
+/**
+ * https://api.slack.com/reference/block-kit/blocks#markdown
+ */
+#[skip_serializing_none]
+#[derive(Debug, PartialEq, Clone, Serialize, Deserialize, Builder)]
+pub struct SlackMarkdownBlock {
+    pub block_id: Option<SlackBlockId>,
+    pub text: String,
+}
+
+impl From<SlackMarkdownBlock> for SlackBlock {
+    fn from(block: SlackMarkdownBlock) -> Self {
+        SlackBlock::Markdown(block)
     }
 }
