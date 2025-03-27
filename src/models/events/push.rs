@@ -65,6 +65,8 @@ pub enum SlackEventCallbackBody {
     ChannelUnarchive(SlackChannelUnarchiveEvent),
     ChannelShared(SlackChannelSharedEvent),
     ChannelUnshared(SlackChannelUnsharedEvent),
+    GroupArchive(GroupArchiveEvent),
+    GroupUnarchive(GroupUnarchiveEvent),
     TeamJoin(SlackTeamJoinEvent),
     FileCreated(SlackFileCreatedEvent),
     FileChange(SlackFileChangedEvent),
@@ -317,6 +319,18 @@ pub struct SlackChannelUnsharedEvent {
     pub channel: SlackChannelId,
     pub is_ext_shared: bool,
     pub event_ts: SlackTs,
+}
+
+#[skip_serializing_none]
+#[derive(Debug, PartialEq, Clone, Serialize, Deserialize, Builder)]
+pub struct GroupArchiveEvent {
+    pub channel: SlackChannelId,
+}
+
+#[skip_serializing_none]
+#[derive(Debug, PartialEq, Clone, Serialize, Deserialize, Builder)]
+pub struct GroupUnarchiveEvent {
+    pub channel: SlackChannelId,
 }
 
 #[skip_serializing_none]
