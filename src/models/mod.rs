@@ -12,6 +12,7 @@
 )]
 
 mod common;
+mod admin;
 
 pub mod apps;
 pub mod blocks;
@@ -20,6 +21,7 @@ pub mod files;
 mod messages;
 pub mod socket_mode;
 
+pub use admin::*;
 pub use apps::*;
 pub use common::*;
 pub use files::*;

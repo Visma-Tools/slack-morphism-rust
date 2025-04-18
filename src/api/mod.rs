@@ -1,5 +1,6 @@
 #![allow(clippy::derive_partial_eq_without_eq)]
 
+mod admin;
 mod apps;
 mod auth;
 mod bots;
@@ -17,6 +18,7 @@ mod users;
 mod views;
 mod webhook;
 
+pub use admin::*;
 pub use apps::*;
 pub use auth::*;
 pub use bots::*;
