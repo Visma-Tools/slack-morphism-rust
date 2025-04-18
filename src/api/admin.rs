@@ -29,14 +29,38 @@ where
         &self,
         req: &SlackApiAdminRolesListAssignmentsRequest,
     ) -> ClientResult<SlackApiAdminRolesListAssignmentsResponse> {
+        let role_ids_str = req
+            .role_ids
+            .iter()
+            .map(|id| id.value().to_string())
+            .collect::<Vec<String>>()
+            .join(",");
+            
+        let entity_ids_str = req.entity_ids.as_ref().map(|ids| {
+            ids.join(",")
+        });
+        
+        let limit_str = req.limit.map(|v| v.to_string());
+        let limit_ref = limit_str.as_ref().map(|s| s as &String);
+        
+        let mut params = vec![
+            ("role_ids", Some(&role_ids_str)),
+            ("cursor", req.cursor.as_ref().map(|v| v.value())),
+            ("limit", limit_ref),
+        ];
+        
+        if let Some(entity_ids) = &entity_ids_str {
+            params.push(("entity_ids", Some(entity_ids)));
+        }
+        
+        if let Some(sort_dir) = &req.sort_dir {
+            params.push(("sort_dir", Some(sort_dir)));
+        }
+        
         self.http_session_api
             .http_get(
                 "admin.roles.listAssignments",
-                &vec![
-                    ("role_id", Some(req.role_id.value())),
-                    ("cursor", req.cursor.as_ref().map(|v| v.value())),
-                    ("limit", req.limit.map(|v| v.to_string()).as_ref()),
-                ],
+                &params,
                 Some(&SLACK_TIER3_METHOD_CONFIG),
             )
             .await
@@ -83,9 +107,11 @@ pub struct SlackApiAdminRolesAddAssignmentsResponse {}
 #[skip_serializing_none]
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize, Builder)]
 pub struct SlackApiAdminRolesListAssignmentsRequest {
-    pub role_id: SlackRoleId,
+    pub role_ids: Vec<SlackRoleId>,
+    pub entity_ids: Option<Vec<String>>,
     pub cursor: Option<SlackCursorId>,
     pub limit: Option<u16>,
+    pub sort_dir: Option<String>,
 }
 
 #[skip_serializing_none]
