@@ -119,7 +119,7 @@ pub struct SlackApiAdminRolesListAssignmentsRequest {
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize, Builder)]
 pub struct SlackApiAdminRolesListAssignmentsResponse {
     pub role_assignments: Vec<SlackRoleAssignment>,
-    pub response_metadata: Option<SlackResponseMetadata>,
+    pub response_metadata: SlackResponseMetadata,
 }
 
 #[skip_serializing_none]
