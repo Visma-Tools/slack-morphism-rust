@@ -1,4 +1,3 @@
-
 use rsb_derive::Builder;
 use rvstruct::ValueStruct;
 use serde::{Deserialize, Serialize};
@@ -18,7 +17,11 @@ where
         req: &SlackApiAdminRolesAddAssignmentsRequest,
     ) -> ClientResult<SlackApiAdminRolesAddAssignmentsResponse> {
         self.http_session_api
-            .http_post("admin.roles.addAssignments", req, Some(&SLACK_TIER2_METHOD_CONFIG))
+            .http_post(
+                "admin.roles.addAssignments",
+                req,
+                Some(&SLACK_TIER2_METHOD_CONFIG),
+            )
             .await
     }
 
@@ -44,11 +47,13 @@ where
         req: &SlackApiAdminRolesRemoveAssignmentsRequest,
     ) -> ClientResult<SlackApiAdminRolesRemoveAssignmentsResponse> {
         let entity_ids_str = req.entity_ids.join(",");
-        let user_ids_str = req.user_ids.iter()
+        let user_ids_str = req
+            .user_ids
+            .iter()
             .map(|id| id.value().to_string())
             .collect::<Vec<String>>()
             .join(",");
-            
+
         self.http_session_api
             .http_get(
                 "admin.roles.removeAssignments",

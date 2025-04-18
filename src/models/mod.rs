@@ -11,8 +11,8 @@
     clippy::derive_partial_eq_without_eq
 )]
 
-mod common;
 mod admin;
+mod common;
 
 pub mod apps;
 pub mod blocks;
