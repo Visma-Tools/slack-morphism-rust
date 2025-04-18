@@ -35,28 +35,26 @@ where
             .map(|id| id.value().to_string())
             .collect::<Vec<String>>()
             .join(",");
-            
-        let entity_ids_str = req.entity_ids.as_ref().map(|ids| {
-            ids.join(",")
-        });
-        
+
+        let entity_ids_str = req.entity_ids.as_ref().map(|ids| ids.join(","));
+
         let limit_str = req.limit.map(|v| v.to_string());
         let limit_ref = limit_str.as_ref().map(|s| s as &String);
-        
+
         let mut params = vec![
             ("role_ids", Some(&role_ids_str)),
             ("cursor", req.cursor.as_ref().map(|v| v.value())),
             ("limit", limit_ref),
         ];
-        
+
         if let Some(entity_ids) = &entity_ids_str {
             params.push(("entity_ids", Some(entity_ids)));
         }
-        
+
         if let Some(sort_dir) = &req.sort_dir {
             params.push(("sort_dir", Some(sort_dir)));
         }
-        
+
         self.http_session_api
             .http_get(
                 "admin.roles.listAssignments",
