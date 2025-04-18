@@ -29,12 +29,12 @@ where
         &self,
         req: &SlackApiAdminRolesListAssignmentsRequest,
     ) -> ClientResult<SlackApiAdminRolesListAssignmentsResponse> {
-        let role_ids_str = req
-            .role_ids
-            .iter()
-            .map(|id| id.value().to_string())
-            .collect::<Vec<String>>()
-            .join(",");
+        let role_ids_str = req.role_ids.as_ref().map(|ids| {
+            ids.iter()
+                .map(|id| id.value().to_string())
+                .collect::<Vec<String>>()
+                .join(",")
+        });
 
         let entity_ids_str = req.entity_ids.as_ref().map(|ids| ids.join(","));
 
@@ -42,10 +42,13 @@ where
         let limit_ref = limit_str.as_ref().map(|s| s as &String);
 
         let mut params = vec![
-            ("role_ids", Some(&role_ids_str)),
             ("cursor", req.cursor.as_ref().map(|v| v.value())),
             ("limit", limit_ref),
         ];
+        
+        if let Some(role_ids) = &role_ids_str {
+            params.push(("role_ids", Some(role_ids)));
+        }
 
         if let Some(entity_ids) = &entity_ids_str {
             params.push(("entity_ids", Some(entity_ids)));
@@ -105,7 +108,7 @@ pub struct SlackApiAdminRolesAddAssignmentsResponse {}
 #[skip_serializing_none]
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize, Builder)]
 pub struct SlackApiAdminRolesListAssignmentsRequest {
-    pub role_ids: Vec<SlackRoleId>,
+    pub role_ids: Option<Vec<SlackRoleId>>,
     pub entity_ids: Option<Vec<String>>,
     pub cursor: Option<SlackCursorId>,
     pub limit: Option<u16>,
