@@ -128,7 +128,7 @@ pub struct SlackRoleAssignment {
     pub role_id: SlackRoleId,
     pub user_id: SlackUserId,
     pub entity_id: String,
-    pub date_create: Option<SlackDateTime>,
+    pub date_create: SlackDateTime,
 }
 
 #[skip_serializing_none]
