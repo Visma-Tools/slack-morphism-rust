@@ -45,7 +45,7 @@ where
             ("cursor", req.cursor.as_ref().map(|v| v.value())),
             ("limit", limit_ref),
         ];
-        
+
         if let Some(role_ids) = &role_ids_str {
             params.push(("role_ids", Some(role_ids)));
         }
