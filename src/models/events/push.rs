@@ -54,7 +54,6 @@ pub enum SlackEventCallbackBody {
     AppHomeOpened(SlackAppHomeOpenedEvent),
     AppMention(SlackAppMentionEvent),
     AppUninstalled(SlackAppUninstalledEvent),
-    AssistantThreadStarted(SlackAssistantThreadStartedEvent),
     LinkShared(SlackLinkSharedEvent),
     EmojiChanged(SlackEmojiChangedEvent),
     MemberJoinedChannel(SlackMemberJoinedChannelEvent),
@@ -213,13 +212,6 @@ pub struct SlackMessageEventEdited {
 #[skip_serializing_none]
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize, Builder)]
 pub struct SlackAppUninstalledEvent {}
-
-#[skip_serializing_none]
-#[derive(Debug, PartialEq, Clone, Serialize, Deserialize, Builder)]
-pub struct SlackAssistantThreadStartedEvent {
-    pub assistant_thread: SlackAssistantThread,
-    pub event_ts: SlackTs,
-}
 
 #[skip_serializing_none]
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize, Builder)]
