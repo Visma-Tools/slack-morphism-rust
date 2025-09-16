@@ -29,7 +29,7 @@ pub enum SlackInteractionEvent {
 #[skip_serializing_none]
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize, Builder)]
 pub struct SlackInteractionBlockActionsEvent {
-    pub team: SlackBasicTeamInfo,
+    pub team: Option<SlackBasicTeamInfo>,
     pub user: Option<SlackBasicUserInfo>,
     pub api_app_id: SlackAppId,
     pub container: SlackInteractionActionContainer,
@@ -45,7 +45,7 @@ pub struct SlackInteractionBlockActionsEvent {
 #[skip_serializing_none]
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize, Builder)]
 pub struct SlackInteractionBlockSuggestionEvent {
-    pub team: SlackBasicTeamInfo,
+    pub team: Option<SlackBasicTeamInfo>,
     pub user: SlackBasicUserInfo,
     pub api_app_id: SlackAppId,
     pub block_id: SlackBlockId,
@@ -97,7 +97,7 @@ pub struct SlackInteractionActionInfo {
 #[skip_serializing_none]
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize, Builder)]
 pub struct SlackInteractionDialogueSubmissionEvent {
-    pub team: SlackBasicTeamInfo,
+    pub team: Option<SlackBasicTeamInfo>,
     pub user: SlackBasicUserInfo,
     pub channel: Option<SlackBasicChannelInfo>,
     #[serde(default)]
@@ -110,7 +110,7 @@ pub struct SlackInteractionDialogueSubmissionEvent {
 #[skip_serializing_none]
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize, Builder)]
 pub struct SlackInteractionMessageActionEvent {
-    pub team: SlackBasicTeamInfo,
+    pub team: Option<SlackBasicTeamInfo>,
     pub user: SlackBasicUserInfo,
     pub channel: Option<SlackBasicChannelInfo>,
     pub message: Option<SlackHistoryMessage>,
@@ -123,7 +123,7 @@ pub struct SlackInteractionMessageActionEvent {
 #[skip_serializing_none]
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize, Builder)]
 pub struct SlackInteractionShortcutEvent {
-    pub team: SlackBasicTeamInfo,
+    pub team: Option<SlackBasicTeamInfo>,
     pub user: SlackBasicUserInfo,
     pub callback_id: SlackCallbackId,
     pub trigger_id: SlackTriggerId,
@@ -133,7 +133,7 @@ pub struct SlackInteractionShortcutEvent {
 #[skip_serializing_none]
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize, Builder)]
 pub struct SlackInteractionViewSubmissionEvent {
-    pub team: SlackBasicTeamInfo,
+    pub team: Option<SlackBasicTeamInfo>,
     pub user: SlackBasicUserInfo,
     pub view: SlackStatefulView,
     pub trigger_id: Option<SlackTriggerId>,
@@ -142,7 +142,7 @@ pub struct SlackInteractionViewSubmissionEvent {
 #[skip_serializing_none]
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize, Builder)]
 pub struct SlackInteractionViewClosedEvent {
-    pub team: SlackBasicTeamInfo,
+    pub team: Option<SlackBasicTeamInfo>,
     pub user: SlackBasicUserInfo,
     pub view: SlackStatefulView,
     pub trigger_id: Option<SlackTriggerId>,
